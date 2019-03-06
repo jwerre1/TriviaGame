@@ -8,7 +8,7 @@ $(document).ready(function() {
             correctAnswerText: "Ludwig van Beethoven"
             },
         {
-            question: "Who fathered 20 children?",
+            question: "Which of the following fathered 20 children?",
             answers: {
                 0: "Johann Sebastian Bach",
                 1: "Franz Joseph Haydn",
@@ -61,10 +61,11 @@ $(document).ready(function() {
     function promptQuestion() {
 
         $("#answer").html("");
+        $("#restart").empty();
         // $("$answer").removeAttr("type");
 
         // sets the timer for each questions
-        $("#timer").text("00:30");
+        $("#timer").text("Time Remaining: 00:20");
         timerStart();
 
         if (questIndex <= (questList.length - 1)) {
@@ -82,9 +83,10 @@ $(document).ready(function() {
             }
         }
 
-        else {
-            $("#question").text("Game Over!");
-        }
+        // else {
+        //     $("#timer").text("");
+        //     $("#question").text("Game Over!");
+        // }
         
             // // Function to render questions.
             // function renderQuestion() {
@@ -121,11 +123,14 @@ $(document).ready(function() {
             promptQuestion();
         }
         else {
-            $("#question").text("Game Over!");
+            $("#timer").empty();
+            $("#question").text("All done! Here's how you did...");
             $("#answer").empty();
             $("#choice0").text("Correct: " + correct);
             $("#choice1").text("Incorrect: " + wrong);
             $("#choice2").text("Unanswered: " + timeOut);
+
+            $("#restart").html("<button type='button' class='btn btn-primary restartButton'>RESTART?</button>");
 
         }
 
@@ -145,7 +150,7 @@ $(document).ready(function() {
     // ran if player runs out of time.
     function timeRunOut() {
         stop();
-        $("#question").text("Ran out of time!");
+        $("#question").text("Ran out of time! The correct answer was " + questList[questIndex].correctAnswerText + ".");
         timeOut++;
 
         for (i = 0; i < 4; i++) {
@@ -163,7 +168,7 @@ $(document).ready(function() {
 
     //function to call when starting timer
     function timerStart() {
-        time = 30;
+        time = 20;
         intervalID = setInterval(count, 1000);
 
         clockRunning = true;
@@ -177,7 +182,7 @@ $(document).ready(function() {
     function count() {
         time--;
         var converted = timeConverter(time);
-        $("#timer").text(converted);
+        $("#timer").text("Time Remaining: " + converted);
 
         // keeps track if player runs out of time
         if (time === 0) {
@@ -241,7 +246,7 @@ $(document).ready(function() {
             correct++;
         }
         else {
-            $("#question").text("Nope! The correct answer was " + questList[questIndex].correctAnswerText);
+            $("#question").text("Nope! The correct answer was " + questList[questIndex].correctAnswerText+ ".");
             wrong++;
         }
         for (i = 0; i < 4; i++) {
@@ -268,7 +273,7 @@ $(document).ready(function() {
             correct++;
         }
         else {
-            $("#question").text("Nope!");
+            $("#question").text("Nope! The correct answer was " + questList[questIndex].correctAnswerText+ ".");
             wrong++;
         }
         for (i = 0; i < 4; i++) {
@@ -294,7 +299,7 @@ $(document).ready(function() {
             correct++;
         }
         else {
-            $("#question").text("Nope!");
+            $("#question").text("Nope! The correct answer was " + questList[questIndex].correctAnswerText+ ".");
             wrong++;
         }
         for (i = 0; i < 4; i++) {
@@ -320,7 +325,7 @@ $(document).ready(function() {
             correct++;
         }
         else {
-            $("#question").text("Nope!");
+            $("#question").text("Nope! The correct answer was " + questList[questIndex].correctAnswerText+ ".");
             wrong++;
         }
         for (i = 0; i < 4; i++) {
@@ -335,6 +340,21 @@ $(document).ready(function() {
         setTimeout(nextQuest, 5*1000);
         
 
+    });
+
+    $("#restart").on("click", function() {
+        questIndex = 0;
+
+        clockRunning = false;
+        
+        time=20;
+        correct = 0;
+        wrong = 0;
+        timeOut = 0;
+        for (i = 0; i < 4; i++) {
+            $("#choice" + [i]).empty();
+        }
+        promptQuestion();
     });
 
 
