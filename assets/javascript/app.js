@@ -17,16 +17,17 @@ $(document).ready(function() {
             }, 
     ] 
 
-    var gifList = ["assets/images/gifOne.gif"]
+    var gifList = ["assets/images/gifOne.gif", "assets/images/gifTwo.gif"]
 
     var questIndex = 0;
 
-    var time = 0;
+    var time;
     var clockRunning = false;
     var intervalID;
     
     var correct = 0;
     var wrong = 0;
+    var timeOut = 0;
 
     //examples of how to reference questions/choices/answers
     // console.log(questList.length);
@@ -100,6 +101,7 @@ $(document).ready(function() {
             $("#answer").empty();
             $("#choice0").text("Correct: " + correct);
             $("#choice1").text("Incorrect: " + wrong);
+            $("#choice2").text("Unanswered: " + timeOut);
 
         }
 
@@ -116,18 +118,42 @@ $(document).ready(function() {
     // }
     }
 
+    // ran if player runs out of time.
+    function timeRunOut() {
+        stop();
+        $("#question").text("Ran out of time!");
+        timeOut++;
+
+        for (i = 0; i < 4; i++) {
+            $("#choice" + [i]).empty();
+        }
+        var currentGif = $("<img>");
+        currentGif.attr({"src":gifList[questIndex], "width":"200px"});
+        $("#answer").append(currentGif);
+
+        questIndex++;
+        setTimeout(nextQuest, 5*1000);
+    }
+
+
 
     //function to call when starting timer
     function timerStart() {
         time = 30;
         intervalID = setInterval(count, 1000);
+
         clockRunning = true;
+
+        // keeps track if player runs out of time
+        if (time === 0 ) {
+            timeRunOut();
+        }
     }
 
     function count() {
         time--;
         var converted = timeConverter(time);
-        $("#timer").text(converted)
+        $("#timer").text(converted);
     }
     //function to stop timer when question answers or timer = 00:00
     function stop() {
@@ -172,10 +198,12 @@ $(document).ready(function() {
 
     // $("#answer").click(checkAnswer);
 
+  
     console.log(questList[questIndex].correctAnswer);
+    console.log(time);
 
     $("#choice0").on("click", function() {
-        console.log("what choice3");
+        console.log("what choice0");
         stop();
         var chosenAnswer = ($(this).attr("answer-check"));
         console.log(chosenAnswer);
@@ -202,7 +230,7 @@ $(document).ready(function() {
     });
 
     $("#choice1").on("click", function() {
-        console.log("what choice3");
+        console.log("what choice1");
         stop();
         var chosenAnswer = ($(this).attr("answer-check"));
         console.log(chosenAnswer);
@@ -212,7 +240,7 @@ $(document).ready(function() {
         }
         else {
             $("#question").text("Nope!");
-            wrong--;
+            wrong++;
         }
         for (i = 0; i < 4; i++) {
             $("#choice" + [i]).empty();
@@ -222,11 +250,13 @@ $(document).ready(function() {
         currentGif.attr({"src":gifList[questIndex], "width":"200px"});
         $("#answer").append(currentGif);
 
+        questIndex++;
+        setTimeout(nextQuest, 5*1000);
         
 
     });
     $("#choice2").on("click", function() {
-        console.log("what choice3");
+        console.log("what choice2");
         stop();
         var chosenAnswer = ($(this).attr("answer-check"));
         console.log(chosenAnswer);
@@ -236,7 +266,7 @@ $(document).ready(function() {
         }
         else {
             $("#question").text("Nope!");
-            wrong--;
+            wrong++;
         }
         for (i = 0; i < 4; i++) {
             $("#choice" + [i]).empty();
@@ -246,6 +276,8 @@ $(document).ready(function() {
         currentGif.attr({"src":gifList[questIndex], "width":"200px"});
         $("#answer").append(currentGif);
 
+        questIndex++;
+        setTimeout(nextQuest, 5*1000);
         
 
     });
@@ -257,16 +289,22 @@ $(document).ready(function() {
         if (chosenAnswer == questList[questIndex].correctAnswer) {
             $("#question").text("Correct!");
             correct++;
-            console.log(correct);
+        }
+        else {
+            $("#question").text("Nope!");
+            wrong++;
         }
         for (i = 0; i < 4; i++) {
             $("#choice" + [i]).empty();
-            wrong--;
         }
          
         var currentGif = $("<img>");
         currentGif.attr({"src":gifList[questIndex], "width":"200px"});
         $("#answer").append(currentGif);
+
+        questIndex++;
+        setTimeout(nextQuest, 5*1000);
+        
 
     });
 
