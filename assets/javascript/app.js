@@ -4,7 +4,8 @@ $(document).ready(function() {
             question: "Who famously wrote a total of nine symphonies, beginning the so called 'curse of the ninth'?",
             // make answers into an array? then set correctAnswer = the "string" within the answers array
             answers: ["Johann Sebastian Bach", "Franz Joseph Haydn", "Wolfgang Amadeus Mozart","Ludwig van Beethoven"],
-            correctAnswer: 3
+            correctAnswer: 3,
+            correctAnswerText: "Ludwig van Beethoven"
             },
         {
             question: "Who fathered 20 children?",
@@ -13,8 +14,30 @@ $(document).ready(function() {
                 1: "Franz Joseph Haydn",
                 2: "Wolfgang Amadeus Mozart",
                 3: "Ludwig van Beethoven"}, 
-                correctAnswer: 0
+                correctAnswer: 0,
+                correctAnswerText: "Johann Sebastian Bach"
             }, 
+        {
+            question: "In Mozart's opera 'Don Giovanni,' how many women has Don Giovanni seduced?",
+            answers: {
+                0: "100",
+                1: "748",
+                2: "1375",
+                3: "2063"}, 
+                correctAnswer: 3,
+                correctAnswerText: "2063"
+            }, 
+        {
+            question: "Which modern composer wrote a piece consisting only of silence?",
+            answers: {
+                0: "Philip Glass",
+                1: "John Cage",
+                2: "John Williams",
+                3: "Arnold Schoenberg"}, 
+                correctAnswer: 1,
+                correctAnswerText: "John Cage"
+            }, 
+        
     ] 
 
     var gifList = ["assets/images/gifOne.gif", "assets/images/gifTwo.gif"]
@@ -62,6 +85,7 @@ $(document).ready(function() {
         else {
             $("#question").text("Game Over!");
         }
+        
             // // Function to render questions.
             // function renderQuestion() {
             //     // If there are still more questions, render the next one.
@@ -144,16 +168,21 @@ $(document).ready(function() {
 
         clockRunning = true;
 
-        // keeps track if player runs out of time
-        if (time === 0 ) {
-            timeRunOut();
-        }
+        // // keeps track if player runs out of time
+        // if (time === 0) {
+        //     timeRunOut();
+        // }
     }
 
     function count() {
         time--;
         var converted = timeConverter(time);
         $("#timer").text(converted);
+
+        // keeps track if player runs out of time
+        if (time === 0) {
+            timeRunOut();
+        }
     }
     //function to stop timer when question answers or timer = 00:00
     function stop() {
@@ -184,7 +213,7 @@ $(document).ready(function() {
       
 
 
-    //sets-up start button
+    //sets-up start buƒantton
     $("#answer").html("<button type='button' class='btn btn-primary startButton'>START?</button>");
 
 
@@ -212,7 +241,7 @@ $(document).ready(function() {
             correct++;
         }
         else {
-            $("#question").text("Nope!");
+            $("#question").text("Nope! The correct answer was " + questList[questIndex].correctAnswerText);
             wrong++;
         }
         for (i = 0; i < 4; i++) {
