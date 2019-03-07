@@ -37,6 +37,16 @@ $(document).ready(function() {
                 correctAnswer: 1,
                 correctAnswerText: "John Cage"
             }, 
+        {
+            question: "In 2018, a box set of Johann Sebastian Bach's complete works required how many CD's?",
+            answers: {
+                0: "44",
+                1: "111",
+                2: "222",
+                3: "333"}, 
+                correctAnswer: 2,
+                correctAnswerText: "222"
+            }, 
         
     ] 
 
@@ -130,7 +140,7 @@ $(document).ready(function() {
             $("#choice1").text("Incorrect: " + wrong);
             $("#choice2").text("Unanswered: " + timeOut);
 
-            $("#restart").html("<button type='button' class='btn btn-primary restartButton'>RESTART?</button>");
+            $("#restart").html("<button type='button' class='btn btn-primary restartButton btn-lg'>RESTART?</button>");
 
         }
 
@@ -219,7 +229,7 @@ $(document).ready(function() {
 
 
     //sets-up start buƒantton
-    $("#answer").html("<button type='button' class='btn btn-primary startButton'>START</button>");
+    $("#answer").html("<button type='button' class='btn btn-primary startButton btn-lg'>START</button>");
 
 
     $(".startButton").on("click", function() {
