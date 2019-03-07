@@ -40,7 +40,7 @@ $(document).ready(function() {
         
     ] 
 
-    var gifList = ["assets/images/gifOne.gif", "assets/images/gifTwo.gif"]
+    var gifList = ["assets/images/gifOne.gif", "assets/images/gifTwo.gif", "assets/images/gifThree.gif","assets/images/gifFour.gif"]
 
     var questIndex = 0;
 
@@ -75,7 +75,7 @@ $(document).ready(function() {
 
             for (i = 0; i < 4; i++) {
                 var choice = $("<button>");
-                choice.addClass("btn btn-light");
+                choice.addClass("btn btn-outline-light btn-lg btn-block");
                 choice.attr("id","possibleChoice");
                 choice.attr("answer-check", [i]);
                 choice.text(questList[questIndex].answers[i]);
@@ -219,7 +219,7 @@ $(document).ready(function() {
 
 
     //sets-up start buƒantton
-    $("#answer").html("<button type='button' class='btn btn-primary startButton'>START?</button>");
+    $("#answer").html("<button type='button' class='btn btn-primary startButton'>START</button>");
 
 
     $(".startButton").on("click", function() {
@@ -254,7 +254,7 @@ $(document).ready(function() {
         }
          
         var currentGif = $("<img>");
-        currentGif.attr({"src":gifList[questIndex], "width":"200px"});
+        currentGif.attr({"src":gifList[questIndex], "width":"250px"});
         $("#answer").append(currentGif);
 
         questIndex++;
@@ -281,7 +281,7 @@ $(document).ready(function() {
         }
          
         var currentGif = $("<img>");
-        currentGif.attr({"src":gifList[questIndex], "width":"200px"});
+        currentGif.attr({"src":gifList[questIndex], "width":"250px"});
         $("#answer").append(currentGif);
 
         questIndex++;
@@ -307,7 +307,7 @@ $(document).ready(function() {
         }
          
         var currentGif = $("<img>");
-        currentGif.attr({"src":gifList[questIndex], "width":"200px"});
+        currentGif.attr({"src":gifList[questIndex], "width":"250px"});
         $("#answer").append(currentGif);
 
         questIndex++;
@@ -333,7 +333,7 @@ $(document).ready(function() {
         }
          
         var currentGif = $("<img>");
-        currentGif.attr({"src":gifList[questIndex], "width":"200px"});
+        currentGif.attr({"src":gifList[questIndex], "width":"250px"});
         $("#answer").append(currentGif);
 
         questIndex++;

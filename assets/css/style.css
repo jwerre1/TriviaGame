@@ -1,0 +1,16 @@
+body {
+    /* photo found on pexels.com - CC0 License, free for personal and commercial use without attribution */
+    /* makes background photo fit page, correctly positioned - found on Stack Overflow */
+    background: url(../images/musicBackground.jpg) no-repeat center center fixed;
+    background-color: lightslategray;
+    background-size: cover;
+}
+
+#textArea {
+    background-color: rgba(94, 94, 94, 0.712);
+    margin: 75px 100px 50px 100px;
+    padding: 25px 50px;
+    text-align: center;
+    font-size: 30px;
+    color: white;
+}
