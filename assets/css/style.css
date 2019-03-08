@@ -8,13 +8,25 @@ body {
 
 #textArea {
     background-color: rgba(94, 94, 94, 0.712);
-    margin: 75px 100px 50px 100px;
+    margin: 70px auto 25px auto;
+    max-width: 800px;
+    width: 100%;
     padding: 25px 50px;
     text-align: center;
     font-size: 30px;
     color: white;
+    font-family: 'IBM Plex Sans', sans-serif;
 }
 
 .btn {
     border: none;
+}
+
+#pageTitle {
+    font-family: 'Cormorant', serif;
+    font-weight: bold;
+}
+
+.plexSans {
+    font-family: 'IBM Plex Sans', sans-serif;
 }

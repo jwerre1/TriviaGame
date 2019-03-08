@@ -2,7 +2,6 @@ $(document).ready(function() {
     var questList = [
         {
             question: "Who famously wrote a total of nine symphonies, beginning the so called 'curse of the ninth'?",
-            // make answers into an array? then set correctAnswer = the "string" within the answers array
             answers: ["Johann Sebastian Bach", "Franz Joseph Haydn", "Wolfgang Amadeus Mozart","Ludwig van Beethoven"],
             correctAnswer: 3,
             correctAnswerText: "Ludwig van Beethoven"
@@ -47,13 +46,50 @@ $(document).ready(function() {
                 correctAnswer: 2,
                 correctAnswerText: "222"
             }, 
+        {
+            question: "Modern composer Karlheinz Stockhausen wrote a string quartet that also requires four of the following:",
+            answers: {
+                0: "Other Composers",
+                1: "Computers",
+                2: "Extra Instruments To Smash Onstage",
+                3: "Helicopters"}, 
+                correctAnswer: 3,
+                correctAnswerText: "Helicopters"
+            }, 
+        {
+            question: "In separate classic cartoons, Bugs Bunny and Tom & Jerry both perform which piano piece?",
+            answers: {
+                0: "Hungarian Rhapsody No.2 by Franz Liszt",
+                1: "Für Elise by Ludwig van Beethoven",
+                2: "Fantaisie-Impromptu by Frédéric Chopin",
+                3: "Claire de Lune by Claude Debussy"}, 
+                correctAnswer: 0,
+                correctAnswerText: "Hungarian Rhapsody No.2 by Franz Liszt"
+            }, 
+        {
+            question: "Who composed the piece featured in the background here?",
+            answers: {
+                0: "Jan Ladislav Dussek",
+                1: "Johann Nepomuk Hummel",
+                2: "Antoine Reicha",
+                3: "Leopold Koželuch"}, 
+                correctAnswer: 1,
+                correctAnswerText: "Johann Nepomuk Hummel"
+            }, 
         
     ] 
 
-    var gifList = ["assets/images/gifOne.gif", "assets/images/gifTwo.gif", "assets/images/gifThree.gif","assets/images/gifFour.gif"]
+    var gifList = ["assets/images/gifOne.gif",
+                    "assets/images/gifTwo.gif",
+                    "assets/images/gifThree.gif",
+                    "assets/images/gifFour.gif",
+                    "assets/images/gifFive.gif",
+                    "assets/images/gifSix.gif",
+                    "assets/images/gifSeven.gif",
+                    "assets/images/gifEight.gif"]
 
+    //Define global variables
     var questIndex = 0;
-
     var time;
     var clockRunning = false;
     var intervalID;
@@ -62,26 +98,19 @@ $(document).ready(function() {
     var wrong = 0;
     var timeOut = 0;
 
-    //examples of how to reference questions/choices/answers
-    // console.log(questList.length);
-    // console.log(questList[1].question);
-    console.log(questList[0].answers[0]);
-
-
+    //Prompts each subsequent question
     function promptQuestion() {
 
         $("#answer").html("");
         $("#restart").empty();
-        // $("$answer").removeAttr("type");
 
         // sets the timer for each questions
         $("#timer").text("Time Remaining: 00:20");
+        $("#timer").css("visibility", "visible")
         timerStart();
 
         if (questIndex <= (questList.length - 1)) {
             $("#question").text(questList[questIndex].question);
-            // console.log(questIndex);
-            // console.log(questList.length)
 
             for (i = 0; i < 4; i++) {
                 var choice = $("<button>");
@@ -92,42 +121,9 @@ $(document).ready(function() {
                 $("#choice" + i).append(choice);
             }
         }
-
-        // else {
-        //     $("#timer").text("");
-        //     $("#question").text("Game Over!");
-        // }
-        
-            // // Function to render questions.
-            // function renderQuestion() {
-            //     // If there are still more questions, render the next one.
-            //     if (questionIndex <= (questions.length - 1)) {
-            //       document.querySelector("#question").innerHTML = questions[questionIndex].q;
-            //     }
-            //     // If there aren't, render the end game screen.
-            //     else {
-            //       document.querySelector("#question").innerHTML = "Game Over!";
-            //       document.querySelector("#score").innerHTML = "Final Score: " + score + " out of " + questions.length;
-            //     }
-            //   }
     }
 
-    function checkAnswer() {
-        var chosenAnswer = ($(this).attr("answerCheck"));
-        console.log(chosenAnswer);
-        if (chosenAnswer === questList[questIndex].correctAnswer) {
-            $("#question").text("Correct!");
-
-            $("#answer").remove(choice);
-            var currentGif = $("<img>");
-            curentGif.attr("src", gifList[questIndex]);
-            $("#answer").append(currentGif);
-            
-
-        }
-    }
-
-
+    //Kicks game to next question or final result page
     function nextQuest () {
         if (questIndex <= (questList.length - 1)) {
             promptQuestion();
@@ -140,21 +136,8 @@ $(document).ready(function() {
             $("#choice1").text("Incorrect: " + wrong);
             $("#choice2").text("Unanswered: " + timeOut);
 
-            $("#restart").html("<button type='button' class='btn btn-primary restartButton btn-lg'>RESTART?</button>");
-
+            $("#restart").html("<button type='button' class='btn btn-primary restartButton btn-lg'>START OVER?</button>");
         }
-
-
-
-    // if (questionIndex <= (questions.length - 1)) {
-    //     document.querySelector("#question").innerHTML = questions[questionIndex].q;
-    //   }
-    //   // If there aren't, render the end game screen.
-    //   else {
-    //     document.querySelector("#question").innerHTML = "Game Over!";
-    //     document.querySelector("#score").innerHTML = "Final Score: " + score + " out of " + questions.length;
-    //   }
-    // }
     }
 
     // ran if player runs out of time.
@@ -182,11 +165,6 @@ $(document).ready(function() {
         intervalID = setInterval(count, 1000);
 
         clockRunning = true;
-
-        // // keeps track if player runs out of time
-        // if (time === 0) {
-        //     timeRunOut();
-        // }
     }
 
     function count() {
@@ -227,24 +205,23 @@ $(document).ready(function() {
     }
       
 
+// GAME BEGINS WITH FOLLOWING CODE
 
-    //sets-up start buƒantton
+    //sets-up start button
     $("#answer").html("<button type='button' class='btn btn-primary startButton btn-lg'>START</button>");
 
+    //allows empty space on start screen
+    $("#timer").text("Time Remaining: 00:20");
+    $("#timer").css("visibility", "hidden")
 
     $(".startButton").on("click", function() {
         promptQuestion();
     });
 
+    //Sets-up each answer choice button
     for (i = 0; i < 4; i++) {
         $("#choice" + [i]).attr("answer-check", [i]);
     }
-
-    // $("#answer").click(checkAnswer);
-
-  
-    console.log(questList[questIndex].correctAnswer);
-    console.log(time);
 
     $("#choice0").on("click", function() {
         console.log("what choice0");
@@ -352,6 +329,7 @@ $(document).ready(function() {
 
     });
 
+    //restarts game if "restart" button pressed on final page
     $("#restart").on("click", function() {
         questIndex = 0;
 
